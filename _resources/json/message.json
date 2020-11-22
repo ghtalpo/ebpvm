@@ -1,0 +1,11 @@
+{
+    "eb_pvm" : {
+        "en": "EbPvm",
+        "ko": "새우튀김 PVM"
+    },
+    "now_loading_d" : {
+        "en": "Now loading... %d",
+        "ko": "불러오는 중... %d"
+    },
+    "000": {}
+}
