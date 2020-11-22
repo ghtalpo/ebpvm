@@ -92,8 +92,8 @@ func loadImage(path string) (*ebiten.Image, bool) {
 }
 
 func init() {
-	keyboardImage, _ = loadImage("common/_resources/image/keyboard2.png")
-	capsImage, _ = loadImage("common/_resources/image/caps.png")
+	keyboardImage, _ = loadImage("_resources/common/image/keyboard2.png")
+	capsImage, _ = loadImage("_resources/common/image/caps.png")
 }
 
 // Keyboard ...
