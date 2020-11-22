@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/ghtalpo/ebpvm/pvm/konst"
+	"github.com/ghtalpo/egb/egb/konst"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 

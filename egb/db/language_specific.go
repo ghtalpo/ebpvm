@@ -3,7 +3,7 @@ package db
 import (
 	"fmt"
 
-	"github.com/ghtalpo/ebpvm/pvm/fileutil"
+	"github.com/ghtalpo/egb/egb/fileutil"
 	"golang.org/x/text/encoding/korean"
 	"golang.org/x/text/transform"
 )

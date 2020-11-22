@@ -1,4 +1,4 @@
-package pvm
+package egb
 
 import (
 	"fmt"
@@ -7,9 +7,9 @@ import (
 
 	"time"
 
-	"github.com/ghtalpo/ebpvm/pvm/db"
-	"github.com/ghtalpo/ebpvm/pvm/states"
-	"github.com/ghtalpo/ebpvm/pvm/ui"
+	"github.com/ghtalpo/egb/egb/db"
+	"github.com/ghtalpo/egb/egb/states"
+	"github.com/ghtalpo/egb/egb/ui"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/juan-medina/goecs"
@@ -68,7 +68,7 @@ func Start() {
 
 	db.SetGameLanguage(configuration.Language)
 
-	fmt.Println("pvm.init")
+	fmt.Println("egb.init")
 
 	rand.Seed(time.Now().UnixNano())
 
@@ -115,9 +115,9 @@ func Start() {
 	gameState.M.StateTransition("loading")
 }
 
-// Stop is a api for stopping pvm logic
+// Stop is a api for stopping egb logic
 func Stop() {
-	fmt.Println("pvm.Stop called")
+	fmt.Println("egb.Stop called")
 
 	select {
 	case logicChannel <- db.GameMessage{"quit": nil}:

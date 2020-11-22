@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ghtalpo/ebpvm/pvm/db"
-	"github.com/ghtalpo/ebpvm/pvm/ui"
+	"github.com/ghtalpo/egb/egb/db"
+	"github.com/ghtalpo/egb/egb/ui"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/juan-medina/goecs"
 	"github.com/theckman/go-fsm"

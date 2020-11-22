@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ghtalpo/ebpvm/pvm"
+	"github.com/ghtalpo/egb/egb"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -27,14 +27,14 @@ func NewGame() *Game {
 // Update is called every tick (1/60 [s] by default).
 func (g *Game) Update() error {
 	// Write your game's logical update.
-	return pvm.OnUpdate()
+	return egb.OnUpdate()
 }
 
 // Draw draws the game screen.
 // Draw is called every frame (typically 1/60[s] for 60Hz display).
 func (g *Game) Draw(screen *ebiten.Image) {
 	// Write your game's rendering.
-	pvm.OnDraw(screen)
+	egb.OnDraw(screen)
 }
 
 // Layout takes the outside size (e.g., the window size) and returns the (logical) screen size.
@@ -45,15 +45,15 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 
 func main() {
 	game := NewGame()
-	pvm.Start()
+	egb.Start()
 	// Sepcify the window size as you like. Here, a doulbed size is specified.
 	ebiten.SetWindowSize(physicalScreenWidth, physicalScreenHeight)
-	ebiten.SetWindowTitle("EbPvm")
+	ebiten.SetWindowTitle("egb")
 	// Call ebiten.RunGame to start your game loop.
 	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)
 	}
-	pvm.Stop()
+	egb.Stop()
 
 	fmt.Println("done")
 }

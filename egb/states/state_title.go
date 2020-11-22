@@ -5,8 +5,8 @@ import (
 	"image/color"
 	"log"
 
-	"github.com/ghtalpo/ebpvm/pvm/db"
-	"github.com/ghtalpo/ebpvm/pvm/ui"
+	"github.com/ghtalpo/egb/egb/db"
+	"github.com/ghtalpo/egb/egb/ui"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/juan-medina/goecs"
 	"github.com/theckman/go-fsm"
@@ -74,7 +74,7 @@ func (s *StateTitle) OnEnter() {
 		s.world.AddEntity(ui.NewText(
 			40*8,
 			6*8*2,
-			mem.GetLocalized("eb_pvm"),
+			mem.GetLocalized("ege"),
 			color.White,
 			true,
 		)),

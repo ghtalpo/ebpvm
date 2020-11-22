@@ -1,8 +1,8 @@
 package db
 
 import (
-	"github.com/ghtalpo/ebpvm/pvm/fileutil"
-	"github.com/ghtalpo/ebpvm/pvm/stringutil"
+	"github.com/ghtalpo/egb/egb/fileutil"
+	"github.com/ghtalpo/egb/egb/stringutil"
 )
 
 const languageFallback = "en"

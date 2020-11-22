@@ -1,4 +1,4 @@
-module github.com/ghtalpo/ebpvm
+module github.com/ghtalpo/egb
 
 go 1.13
 
@@ -14,4 +14,4 @@ require (
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )
 
-replace github.com/ghtalpo/ebpvm/pvm v0.0.0 => ./pvm/ // for easy develop
+replace github.com/ghtalpo/egb/egb v0.0.0 => ./egb/ // for easy develop
