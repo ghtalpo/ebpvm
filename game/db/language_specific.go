@@ -13,7 +13,7 @@ var (
 	valDepedentForLang int
 )
 
-// SetGameLanguage is
+// SetGameLanguage ...
 func SetGameLanguage(inLang string) {
 	if lang == "" {
 		lang = inLang
@@ -23,7 +23,7 @@ func SetGameLanguage(inLang string) {
 	}
 }
 
-// GetGameLanguage is
+// GetGameLanguage ...
 func GetGameLanguage() string {
 	return getGameLanguage()
 }
@@ -40,7 +40,7 @@ func CheckErrorsInDatFiles(lang string) bool {
 	return false
 }
 
-// CheckDatFiles is
+// CheckDatFiles ...
 func CheckDatFiles() {
 	if CheckErrorsInDatFiles(getGameLanguage()) {
 		panic(false)
@@ -65,12 +65,12 @@ func getPathForTestData() string {
 	return "_resources/dat/testdata.dat"
 }
 
-// LoadTestData load
+// LoadTestData ...
 func LoadTestData() {
 	testData = fileutil.ReadByteArray(getPathForTestData())
 }
 
-// LoadDataFiles is
+// LoadDataFiles ...
 func LoadDataFiles() {
 	LoadTestData()
 }

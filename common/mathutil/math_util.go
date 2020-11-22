@@ -24,22 +24,22 @@ func LoByte(v int) byte {
 	return byte(v & 0xff)
 }
 
-// GetLittleEndianBytesFromWord is
+// GetLittleEndianBytesFromWord ...
 func GetLittleEndianBytesFromWord(v int) (b0 byte, b1 byte) {
 	return byte(v & 0xff), byte((v >> 8) & 0xff)
 }
 
-// MakeWordFromLittleEndianBytes is
+// MakeWordFromLittleEndianBytes ...
 func MakeWordFromLittleEndianBytes(b0 byte, b1 byte) int {
 	return int(b0) | (int(b1) << 8)
 }
 
-// GetLittleEndianBytesFromDWord is
+// GetLittleEndianBytesFromDWord ...
 func GetLittleEndianBytesFromDWord(v int) (b0 byte, b1 byte, b2 byte, b3 byte) {
 	return byte(v & 0xff), byte((v >> 8) & 0xff), byte((v >> 16) & 0xff), byte((v >> 24) & 0xff)
 }
 
-// MakeDWordFromLittleEndianBytes is
+// MakeDWordFromLittleEndianBytes ...
 func MakeDWordFromLittleEndianBytes(b0 byte, b1 byte, b2 byte, b3 byte) int {
 	return int(b0) | (int(b1) << 8) | (int(b2) << 16) | (int(b3) << 24)
 }

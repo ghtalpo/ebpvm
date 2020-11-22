@@ -6,7 +6,7 @@ import (
 	"golang.org/x/image/font"
 )
 
-// NewCheckBox is
+// NewCheckBox ...
 func NewCheckBox(x int, y int, text string) *CheckBox {
 	return &CheckBox{
 		X:    x,
@@ -15,14 +15,14 @@ func NewCheckBox(x int, y int, text string) *CheckBox {
 	}
 }
 
-// NewTextBox is
+// NewTextBox ...
 func NewTextBox(rect image.Rectangle) *TextBox {
 	return &TextBox{
 		Rect: rect,
 	}
 }
 
-// GetUIFont is
+// GetUIFont ...
 func GetUIFont() font.Face {
 	return uiFont
 }

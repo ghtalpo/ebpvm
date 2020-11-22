@@ -16,7 +16,7 @@ func (t Text) Type() goecs.ComponentType {
 	return TextType
 }
 
-// NewText is
+// NewText ...
 func NewText(x int, y int, text string, c color.Color, isCenter bool) *Text {
 	return &Text{
 		X:        x,

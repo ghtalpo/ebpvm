@@ -58,7 +58,7 @@ type Configuration struct {
 	Language string
 }
 
-// Start is
+// Start ...
 func Start() {
 	gs.configuration = Configuration{}
 

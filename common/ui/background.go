@@ -13,7 +13,7 @@ func (b Background) Type() goecs.ComponentType {
 	return BackgroundType
 }
 
-// NewBackground is
+// NewBackground ...
 func NewBackground(x int, y int, image *ebiten.Image) *Background {
 	return &Background{
 		X:     x,

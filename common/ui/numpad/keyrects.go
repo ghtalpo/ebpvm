@@ -41,7 +41,7 @@ func init() {
 	keyboardKeyRects[ebiten.KeyEnter] = image.Rect(16, 54, 64, 72)
 }
 
-// KeyRect is
+// KeyRect ...
 func KeyRect(key ebiten.Key) (image.Rectangle, bool) {
 	r, ok := keyboardKeyRects[key]
 	return r, ok

@@ -29,12 +29,12 @@ func ReadByteArray(path string) []byte {
 	return data
 }
 
-// IsExists is
+// IsExists ...
 func IsExists(path string) bool {
 	return IsValid(path)
 }
 
-// IsValid is
+// IsValid ...
 func IsValid(path string) bool {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		// log.Fatal(err)
@@ -43,12 +43,12 @@ func IsValid(path string) bool {
 	return true
 }
 
-// IsInvalid is
+// IsInvalid ...
 func IsInvalid(path string) bool {
 	return !IsValid(path)
 }
 
-// Create is
+// Create ...
 func Create(filename string) (*OFS, error) {
 	f, err := os.Create(filename)
 	if err != nil {
@@ -60,7 +60,7 @@ func Create(filename string) (*OFS, error) {
 	return &ofs, nil
 }
 
-// Write is
+// Write ...
 func Write(ofs *OFS, s string, l int) {
 	if ofs.f == nil {
 		panic(false)

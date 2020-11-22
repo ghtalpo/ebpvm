@@ -71,7 +71,7 @@ var validKeys []ebiten.Key = []ebiten.Key{
 	ebiten.KeyShift,
 }
 
-// LoadImage is
+// LoadImage ...
 func LoadImage(path string) *ebiten.Image {
 	img, _ := loadImage(path)
 	return img
@@ -96,7 +96,7 @@ func init() {
 	capsImage, _ = loadImage("common/_resources/image/caps.png")
 }
 
-// Keyboard is
+// Keyboard ...
 type Keyboard struct {
 	TopLeft         image.Point
 	feedBackPos     image.Point
