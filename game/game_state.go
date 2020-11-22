@@ -17,56 +17,56 @@ import (
 	"github.com/tkanos/gonfig"
 )
 
-// GameState indicates game status, this can be global db
-type GameState struct {
-	M     *fsm.Machine
-	world *goecs.World
+// status indicates game status, this can be global db
+type status struct {
+	M             *fsm.Machine
+	world         *goecs.World
+	currentState  states.State
+	configuration Configuration
+	logicChannel  chan db.GameMessage
+	uiChannel     chan db.GameMessage
 }
 
-// NewGameState is a constructor for Game
-func NewGameState() *GameState {
-	return &GameState{
-		M:     &fsm.Machine{},
-		world: goecs.Default(),
+// newstatus is a constructor for Game
+func newstatus() *status {
+	return &status{
+		M:            &fsm.Machine{},
+		world:        goecs.Default(),
+		logicChannel: make(chan db.GameMessage, 1),
+		uiChannel:    make(chan db.GameMessage, 1),
 	}
 }
 
 // StateTransitionCallback is a callback from fsm
 // used for calling MakeState & OnEnter
 // WARNING: does not called in 1st state transition
-func (*GameState) StateTransitionCallback(newState fsm.State) error {
-	if currentState != nil {
-		currentState.OnLeave()
+func (s *status) StateTransitionCallback(newState fsm.State) error {
+	if s.currentState != nil {
+		s.currentState.OnLeave()
 	}
-	currentState = states.MakeState(newState, gameState.M, gameState.world, logicChannel, uiChannel)
-	if currentState != nil {
-		currentState.OnEnter()
+	s.currentState = states.MakeState(newState, gs.M, gs.world, s.logicChannel, s.uiChannel)
+	if s.currentState != nil {
+		s.currentState.OnEnter()
 	}
 	return nil
 }
+
+var gs = newstatus()
 
 // Configuration says
 type Configuration struct {
 	Language string
 }
 
-var (
-	gameState     = NewGameState()
-	currentState  states.State
-	logicChannel  chan db.GameMessage = make(chan db.GameMessage, 1)
-	uiChannel     chan db.GameMessage = make(chan db.GameMessage, 1)
-	configuration Configuration
-)
-
 // Start is
 func Start() {
-	configuration = Configuration{}
+	gs.configuration = Configuration{}
 
-	if err := gonfig.GetConf("config.yaml", &configuration); err != nil {
+	if err := gonfig.GetConf("config.yaml", &gs.configuration); err != nil {
 		panic(err)
 	}
 
-	db.SetGameLanguage(configuration.Language)
+	db.SetGameLanguage(gs.configuration.Language)
 
 	fmt.Println("egb.init")
 
@@ -74,45 +74,45 @@ func Start() {
 
 	db.LoadDataFiles()
 
-	db.GetMem().Initialize(logicChannel, uiChannel)
+	db.GetMem().Initialize(gs.logicChannel, gs.uiChannel)
 	// db.GetSound().Initialize()
 	db.GetResources().Initialize()
 
-	gameState.world.AddSystem(updateButtonSystem)
+	gs.world.AddSystem(updateButtonSystem)
 
 	// add initial rule
-	gameState.M.SetStateTransitionCallback(gameState, false)
+	gs.M.SetStateTransitionCallback(gs, false)
 
-	if err := gameState.M.AddStateTransitionRules("start", "loading", "title", "exit"); err != nil {
+	if err := gs.M.AddStateTransitionRules("start", "loading", "title", "exit"); err != nil {
 		log.Fatal(err)
 	}
 
 	// add rest of rules
-	gameState.M.AddStateTransitionRules("start", "loading")
-	gameState.M.AddStateTransitionRules("loading", "title")
-	gameState.M.AddStateTransitionRules("title", "exit")
-	gameState.M.AddStateTransitionRules("title", "scenario")
-	gameState.M.AddStateTransitionRules("title", "load_game")
-	gameState.M.AddStateTransitionRules("load_game", "title")
-	gameState.M.AddStateTransitionRules("load_game", "play")
-	gameState.M.AddStateTransitionRules("scenario", "select_player")
-	gameState.M.AddStateTransitionRules("scenario", "title")
-	gameState.M.AddStateTransitionRules("select_player", "select_new_player")
-	gameState.M.AddStateTransitionRules("select_new_player", "select_modes")
-	gameState.M.AddStateTransitionRules("select_player", "select_modes")
-	gameState.M.AddStateTransitionRules("select_modes", "exit")
-	gameState.M.AddStateTransitionRules("select_modes", "scenario")
-	gameState.M.AddStateTransitionRules("select_modes", "select_player")
-	gameState.M.AddStateTransitionRules("select_modes", "play")
-	gameState.M.AddStateTransitionRules("play", "exit")
-	gameState.M.AddStateTransitionRules("exit") // final state
+	gs.M.AddStateTransitionRules("start", "loading")
+	gs.M.AddStateTransitionRules("loading", "title")
+	gs.M.AddStateTransitionRules("title", "exit")
+	gs.M.AddStateTransitionRules("title", "scenario")
+	gs.M.AddStateTransitionRules("title", "load_game")
+	gs.M.AddStateTransitionRules("load_game", "title")
+	gs.M.AddStateTransitionRules("load_game", "play")
+	gs.M.AddStateTransitionRules("scenario", "select_player")
+	gs.M.AddStateTransitionRules("scenario", "title")
+	gs.M.AddStateTransitionRules("select_player", "select_new_player")
+	gs.M.AddStateTransitionRules("select_new_player", "select_modes")
+	gs.M.AddStateTransitionRules("select_player", "select_modes")
+	gs.M.AddStateTransitionRules("select_modes", "exit")
+	gs.M.AddStateTransitionRules("select_modes", "scenario")
+	gs.M.AddStateTransitionRules("select_modes", "select_player")
+	gs.M.AddStateTransitionRules("select_modes", "play")
+	gs.M.AddStateTransitionRules("play", "exit")
+	gs.M.AddStateTransitionRules("exit") // final state
 
 	// set initial state
-	if err := gameState.M.StateTransition("start"); err != nil {
+	if err := gs.M.StateTransition("start"); err != nil {
 		log.Fatal(err)
 	}
 
-	gameState.M.StateTransition("loading")
+	gs.M.StateTransition("loading")
 }
 
 // Stop is a api for stopping egb logic
@@ -120,25 +120,25 @@ func Stop() {
 	fmt.Println("egb.Stop called")
 
 	select {
-	case logicChannel <- db.GameMessage{"quit": nil}:
+	case gs.logicChannel <- db.GameMessage{"quit": nil}:
 		fmt.Println("[GM] sent stop message")
 	default:
 		fmt.Println("[GM] no message sent")
 	}
-	close(logicChannel)
-	close(uiChannel)
+	close(gs.logicChannel)
+	close(gs.uiChannel)
 	fmt.Println("channel closed")
 }
 
 // OnUpdate called from main.update.
 func OnUpdate() error {
-	gameState.world.Update(1.0 / float32(ebiten.MaxTPS()))
-	return currentState.OnUpdate()
+	gs.world.Update(1.0 / float32(ebiten.MaxTPS()))
+	return gs.currentState.OnUpdate()
 }
 
 // OnDraw called from main.draw.
 func OnDraw(screen *ebiten.Image) {
-	currentState.OnDraw(screen)
+	gs.currentState.OnDraw(screen)
 }
 
 func updateButtonSystem(world *goecs.World, delta float32) error {
