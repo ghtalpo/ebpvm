@@ -29,26 +29,27 @@ type Background struct {
 	image *ebiten.Image
 }
 
-// Update
-func (t *Background) Update() {
+// Update ...
+func (b *Background) Update() {
 }
 
 // setupGeom is reset, scale, translate geoM
-func (t *Background) setupGeom(op *ebiten.DrawImageOptions, x int, y int) {
+func (b *Background) setupGeom(op *ebiten.DrawImageOptions, x int, y int) {
 	op.GeoM.Reset()
 	// op.GeoM.Scale(1, 2)
 	op.GeoM.Translate(float64(x), float64(y))
 }
 
 // Draw renders content
-func (t *Background) Draw(dst *ebiten.Image, op *ebiten.DrawImageOptions) {
-	t.setupGeom(op, t.X, t.Y)
-	dst.DrawImage(t.image, op)
+func (b *Background) Draw(dst *ebiten.Image, op *ebiten.DrawImageOptions) {
+	b.setupGeom(op, b.X, b.Y)
+	dst.DrawImage(b.image, op)
 }
 
-func (t *Background) GetImage() *ebiten.Image {
-	if t.image == nil {
+// GetImage ...
+func (b *Background) GetImage() *ebiten.Image {
+	if b.image == nil {
 		return nil
 	}
-	return t.image
+	return b.image
 }

@@ -12,7 +12,7 @@ import (
 var TextType = goecs.NewComponentType()
 
 // Type will return Button goecs.ComponentType
-func (b Text) Type() goecs.ComponentType {
+func (t Text) Type() goecs.ComponentType {
 	return TextType
 }
 
@@ -36,7 +36,7 @@ type Text struct {
 	IsCenter bool
 }
 
-// Update
+// Update ...
 func (t *Text) Update() {
 }
 
