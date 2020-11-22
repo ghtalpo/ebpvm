@@ -1,77 +1,77 @@
 package konst
 
-// CheatEnabled is
+// CheatEnabled ...
 const CheatEnabled = true
 
 const (
-	// Key0 is
+	// Key0 ...
 	Key0 = 0
-	// Key1 is
+	// Key1 ...
 	Key1 = 1
-	// Key2 is
+	// Key2 ...
 	Key2 = 2
-	// Key3 is
+	// Key3 ...
 	Key3 = 3
-	// Key4 is
+	// Key4 ...
 	Key4 = 4
-	// Key5 is
+	// Key5 ...
 	Key5 = 5
-	// Key6 is
+	// Key6 ...
 	Key6 = 6
-	// Key7 is
+	// Key7 ...
 	Key7 = 7
-	// Key8 is
+	// Key8 ...
 	Key8 = 8
-	// Key9 is
+	// Key9 ...
 	Key9 = 9
-	// KeyEnter is
+	// KeyEnter ...
 	KeyEnter = 13
-	// KeyU is
+	// KeyU ...
 	KeyU = -1 // gara for now
-	// KeyI is
+	// KeyI ...
 	KeyI = -1 // gara for now
-	// KeyJ is
+	// KeyJ ...
 	KeyJ = -1 // gara for now
-	// KeyO is
+	// KeyO ...
 	KeyO = -1 // gara for now
-	// KeyK is
+	// KeyK ...
 	KeyK = -1 // gara for now
-	// KeyL is
+	// KeyL ...
 	KeyL = -1 // gara for now
-	// KeyM is
+	// KeyM ...
 	KeyM = -1 // gara for now
-	// KeySlash is
+	// KeySlash ...
 	KeySlash = -1 // gara for now
-	// KeyAsterisk is
+	// KeyAsterisk ...
 	KeyAsterisk = -1 // gara for now
-	// KeyF10 is
+	// KeyF10 ...
 	KeyF10 = -1 // gara for now
 )
 
-// NumberInvalid is
+// NumberInvalid ...
 const NumberInvalid = -1
 
 // FrameRate for converting tick to seconds
 const FrameRate = 30
 
-// OK is
+// OK ...
 const OK = 1
 
-// FakeType is
+// FakeType ...
 type FakeType int
 
 const (
-	// FakeTypeNull is
+	// FakeTypeNull ...
 	FakeTypeNull = iota
-	// FakeTypeInt is
+	// FakeTypeInt ...
 	FakeTypeInt
-	// FakeTypeWar is
+	// FakeTypeWar ...
 	FakeTypeWar
-	// FakeTypeChr is
+	// FakeTypeChr ...
 	FakeTypeChr
 )
 
-// GetFakeType is
+// GetFakeType ...
 func GetFakeType(n int) FakeType {
 	switch n {
 	case int(FakeTypeNull):

@@ -49,7 +49,7 @@ func setupGeom(op *ebiten.DrawImageOptions, x int, y int) {
 	setupGeomMirror(op, x, y, false)
 }
 
-// setupGeom is
+// setupGeom ...
 func setupGeomMirror(op *ebiten.DrawImageOptions, x int, y int, bMirror bool) {
 	resetGeomMirror(op, bMirror)
 	op.GeoM.Translate(float64(x), float64(y))

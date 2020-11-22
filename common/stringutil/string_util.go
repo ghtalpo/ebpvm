@@ -28,7 +28,7 @@ func Atoi(s string) int {
 	return i
 }
 
-// CleanString is
+// CleanString ...
 func CleanString(s string) string {
 	i := strings.IndexByte(s, 0)
 	if i != -1 {

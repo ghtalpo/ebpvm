@@ -14,7 +14,7 @@ func (b Button) Type() goecs.ComponentType {
 	return ButtonType
 }
 
-// NewButton is
+// NewButton ...
 func NewButton(rect image.Rectangle, text string, onPressed func(b *Button)) *Button {
 	return &Button{
 		Rect:      rect,

@@ -4,11 +4,11 @@ import (
 	"time"
 )
 
-// GameMessage is
+// GameMessage ...
 type GameMessage map[string]interface{}
 
 const (
-	// ConstIdxInvalid is
+	// ConstIdxInvalid ...
 	ConstIdxInvalid = 0xff
 )
 
@@ -40,7 +40,7 @@ func (m *Mem) Initialize(inChannel <-chan GameMessage, outChannel chan<- GameMes
 	m.outChannel = outChannel
 }
 
-// SleepSeconds is
+// SleepSeconds ...
 func (m *Mem) SleepSeconds(seconds int) {
 	m.sleepSec(seconds)
 }

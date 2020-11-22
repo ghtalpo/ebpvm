@@ -18,7 +18,7 @@ const (
 // Game implements ebiten.Game interface.
 type Game struct{}
 
-// NewGame is
+// NewGame ...
 func NewGame() *Game {
 	return &Game{}
 }

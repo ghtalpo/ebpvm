@@ -8,7 +8,7 @@ import (
 	"github.com/ghtalpo/egb/common/mathutil"
 )
 
-// Reader is
+// Reader ...
 type Reader interface {
 	ReadByteSafe() byte
 	ReadWordSafe() int
@@ -18,7 +18,7 @@ type Reader interface {
 	SkipBytesSafe(length int)
 }
 
-// Writer is
+// Writer ...
 type Writer interface {
 	WriteByteSafe(b byte)
 	WriteWordSafe(n int)
@@ -27,17 +27,17 @@ type Writer interface {
 	WriteVecSafe(v []byte, startp int, length int)
 }
 
-// IFS is
+// IFS ...
 type IFS struct {
 	f *os.File
 }
 
-// NewIFS is a constructor
+// NewIFS ... a constructor
 func NewIFS(f *os.File) *IFS {
 	return &IFS{f: f}
 }
 
-// Seek is
+// Seek ...
 func (i *IFS) Seek(n int) error {
 	if _, err := i.f.Seek(int64(n), 0); err != nil {
 		panic(err)
@@ -45,7 +45,7 @@ func (i *IFS) Seek(n int) error {
 	return nil
 }
 
-// GetLen is
+// GetLen ...
 func (i *IFS) GetLen() int {
 	fileInfo, err := i.f.Stat()
 	if err != nil {
@@ -54,7 +54,7 @@ func (i *IFS) GetLen() int {
 	return int(fileInfo.Size())
 }
 
-// GetBuffer is
+// GetBuffer ...
 func (i *IFS) GetBuffer(n int) []byte {
 	b := make([]byte, n)
 	readByte, err := i.f.Read(b)
@@ -67,23 +67,23 @@ func (i *IFS) GetBuffer(n int) []byte {
 	return b
 }
 
-// Close is
+// Close ...
 func (i *IFS) Close() {
 	i.f.Close()
 	i.f = nil
 }
 
-// OFS is
+// OFS ...
 type OFS struct {
 	f *os.File
 }
 
-// NewOFS is a constructor
+// NewOFS ... a constructor
 func NewOFS() *OFS {
 	return &OFS{}
 }
 
-// Store8 is
+// Store8 ...
 func (o *OFS) Store8(b byte) error {
 	bytesWritten, err := o.f.Write([]byte{b})
 	if err != nil {
@@ -95,7 +95,7 @@ func (o *OFS) Store8(b byte) error {
 	return nil
 }
 
-// Close is
+// Close ...
 func (o *OFS) Close() {
 	fileInfo, err := o.f.Stat()
 	if err != nil {
@@ -106,27 +106,27 @@ func (o *OFS) Close() {
 	o.f = nil
 }
 
-// Serializer is
+// Serializer ...
 type Serializer struct {
 	data []byte
 	pos  int
 	ofs  *OFS
 }
 
-// NewSerializer is
+// NewSerializer ...
 func NewSerializer(rawData []byte, rawPos int) *Serializer {
 	s := Serializer{data: rawData, pos: rawPos}
 	return &s
 }
 
-// ReadByteRaw is
+// ReadByteRaw ...
 func (s *Serializer) ReadByteRaw() (byte, error) {
 	v := s.data[s.pos]
 	s.pos++
 	return v, nil
 }
 
-// ReadByteSafe is
+// ReadByteSafe ...
 func (s *Serializer) ReadByteSafe() byte {
 	v, err := s.ReadByteRaw()
 	if err != nil {
@@ -135,14 +135,14 @@ func (s *Serializer) ReadByteSafe() byte {
 	return v
 }
 
-// ReadWordRaw is
+// ReadWordRaw ...
 func (s *Serializer) ReadWordRaw() (int, error) {
 	v := int(s.data[s.pos]) | (int(s.data[s.pos+1]) << 8)
 	s.pos += 2
 	return v, nil
 }
 
-// ReadWordSafe is
+// ReadWordSafe ...
 func (s *Serializer) ReadWordSafe() int {
 	v, err := s.ReadWordRaw()
 	if err != nil {
@@ -151,14 +151,14 @@ func (s *Serializer) ReadWordSafe() int {
 	return v
 }
 
-// ReadDWordRaw is
+// ReadDWordRaw ...
 func (s *Serializer) ReadDWordRaw() (int, error) {
 	v := mathutil.MakeDWordFromLittleEndianBytes(s.data[s.pos], s.data[s.pos+1], s.data[s.pos+2], s.data[s.pos+3])
 	s.pos += 4
 	return v, nil
 }
 
-// ReadDWordSafe is
+// ReadDWordSafe ...
 func (s *Serializer) ReadDWordSafe() int {
 	v, err := s.ReadDWordRaw()
 	if err != nil {
@@ -167,13 +167,13 @@ func (s *Serializer) ReadDWordSafe() int {
 	return v
 }
 
-// ReadStringRaw is
+// ReadStringRaw ...
 func (s *Serializer) ReadStringRaw(length int) (string, error) {
 	v, err := s.ReadVecRaw(length)
 	return string(v), err
 }
 
-// ReadStringSafe is
+// ReadStringSafe ...
 func (s *Serializer) ReadStringSafe(length int) string {
 	v, err := s.ReadStringRaw(length)
 	if err != nil {
@@ -182,20 +182,20 @@ func (s *Serializer) ReadStringSafe(length int) string {
 	return v
 }
 
-// SkipBytesRaw is
+// SkipBytesRaw ...
 func (s *Serializer) SkipBytesRaw(length int) error {
 	s.pos += length
 	return nil
 }
 
-// SkipBytesSafe is
+// SkipBytesSafe ...
 func (s *Serializer) SkipBytesSafe(length int) {
 	if err := s.SkipBytesRaw(length); err != nil {
 		panic(err)
 	}
 }
 
-// ReadVecRaw is
+// ReadVecRaw ...
 func (s *Serializer) ReadVecRaw(length int) ([]byte, error) {
 	v := make([]byte, length)
 	for p := range v {
@@ -206,7 +206,7 @@ func (s *Serializer) ReadVecRaw(length int) ([]byte, error) {
 	return v, nil
 }
 
-// ReadVecSafe is
+// ReadVecSafe ...
 func (s *Serializer) ReadVecSafe(length int) []byte {
 	v, err := s.ReadVecRaw(length)
 	if err != nil {
@@ -215,12 +215,12 @@ func (s *Serializer) ReadVecSafe(length int) []byte {
 	return v
 }
 
-// SetOFS is
+// SetOFS ...
 func (s *Serializer) SetOFS(ofs *OFS) {
 	s.ofs = ofs
 }
 
-// WriteZeroes is
+// WriteZeroes ...
 func (s *Serializer) WriteZeroes(startp int, endp int) error {
 	if s.ofs == nil {
 		log.Fatal()
@@ -231,32 +231,32 @@ func (s *Serializer) WriteZeroes(startp int, endp int) error {
 	return nil
 }
 
-// WriteByteSafe is
+// WriteByteSafe ...
 func (s *Serializer) WriteByteSafe(v byte) {
 	_ = s.WriteByte(v)
 }
 
-// WriteWordSafe is
+// WriteWordSafe ...
 func (s *Serializer) WriteWordSafe(n int) {
 	_ = s.WriteWord(n)
 }
 
-// WriteDWordSafe is
+// WriteDWordSafe ...
 func (s *Serializer) WriteDWordSafe(n int) {
 	_ = s.WriteDWord(n)
 }
 
-// WriteStringSafe is
+// WriteStringSafe ...
 func (s *Serializer) WriteStringSafe(str string, length int) {
 	_ = s.WriteString(str, length)
 }
 
-// WriteVecSafe is
+// WriteVecSafe ...
 func (s *Serializer) WriteVecSafe(v []byte, startp int, length int) {
 	_ = s.WriteVec(v, startp, length)
 }
 
-// WriteByte is
+// WriteByte ...
 func (s *Serializer) WriteByte(v byte) error {
 	if s.ofs == nil {
 		log.Fatal()
@@ -265,7 +265,7 @@ func (s *Serializer) WriteByte(v byte) error {
 	return nil
 }
 
-// WriteWord is
+// WriteWord ...
 func (s *Serializer) WriteWord(v int) error {
 	if s.ofs == nil {
 		log.Fatal()
@@ -276,7 +276,7 @@ func (s *Serializer) WriteWord(v int) error {
 	return nil
 }
 
-// WriteDWord is
+// WriteDWord ...
 func (s *Serializer) WriteDWord(v int) error {
 	if s.ofs == nil {
 		log.Fatal()
@@ -289,7 +289,7 @@ func (s *Serializer) WriteDWord(v int) error {
 	return nil
 }
 
-// WriteString is
+// WriteString ...
 func (s *Serializer) WriteString(str string, length int) error {
 	if s.ofs == nil {
 		log.Fatal()
@@ -304,7 +304,7 @@ func (s *Serializer) WriteString(str string, length int) error {
 	return nil
 }
 
-// WriteVec is
+// WriteVec ...
 func (s *Serializer) WriteVec(v []byte, startp int, length int) error {
 	if s.ofs == nil {
 		log.Fatal()

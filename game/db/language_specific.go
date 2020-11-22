@@ -13,7 +13,7 @@ var (
 	valDepedentForLang int
 )
 
-// SetGameLanguage is
+// SetGameLanguage ...
 func SetGameLanguage(inLang string) {
 	if lang == "" {
 		lang = inLang
@@ -23,7 +23,7 @@ func SetGameLanguage(inLang string) {
 	}
 }
 
-// GetGameLanguage is
+// GetGameLanguage ...
 func GetGameLanguage() string {
 	return getGameLanguage()
 }
@@ -32,16 +32,47 @@ func getGameLanguage() string {
 	return lang
 }
 
-// CheckDatFiles is
+// CheckErrorsInDatFiles checks existence of all dat files
+func CheckErrorsInDatFiles(lang string) bool {
+	if fileutil.IsInvalid(getPathForTestData()) {
+		return true
+	}
+	return false
+}
+
+// CheckDatFiles ...
 func CheckDatFiles() {
-	if fileutil.CheckErrorsInDatFiles(getGameLanguage()) {
+	if CheckErrorsInDatFiles(getGameLanguage()) {
 		panic(false)
 	}
 }
 
-// LoadDataFiles is
+var (
+	testData []byte
+)
+
+// GetTestData get
+func GetTestData() []byte {
+	return testData
+}
+
+// GetTestDataSub get
+func GetTestDataSub(start int, end int) []byte {
+	return testData[start:end]
+}
+
+func getPathForTestData() string {
+	return "_resources/dat/testdata.dat"
+}
+
+// LoadTestData ...
+func LoadTestData() {
+	testData = fileutil.ReadByteArray(getPathForTestData())
+}
+
+// LoadDataFiles ...
 func LoadDataFiles() {
-	fileutil.LoadTestData()
+	LoadTestData()
 }
 
 func setupVariables() {

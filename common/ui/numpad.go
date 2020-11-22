@@ -32,10 +32,10 @@ var validNumPadKeys []ebiten.Key = []ebiten.Key{
 }
 
 func init() {
-	numPadImage, _ = loadImage("_resources/image/numpad.png")
+	numPadImage, _ = loadImage("common/_resources/image/numpad.png")
 }
 
-// NumPad is
+// NumPad ...
 type NumPad struct {
 	TopLeft         image.Point
 	feedbackPos     image.Point
@@ -74,7 +74,7 @@ func (k *NumPad) DisableFeedback() {
 	k.feedbackEnabled = false
 }
 
-// SetFeedbackColor is
+// SetFeedbackColor ...
 func (k *NumPad) SetFeedbackColor(color color.Color) {
 	k.feedbackColor = color
 }

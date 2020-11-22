@@ -9,7 +9,7 @@ const languageFallback = "en"
 
 var resources Resources
 
-// GetResources is
+// GetResources ...
 func GetResources() *Resources {
 	return getResources()
 }
@@ -26,7 +26,7 @@ type Resources struct {
 	language string
 }
 
-// Initialize is
+// Initialize ...
 func (r *Resources) Initialize() {
 	r.setLanguage(getGameLanguage())
 }

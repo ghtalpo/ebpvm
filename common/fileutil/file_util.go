@@ -1,10 +1,12 @@
 package fileutil
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
+	"path"
 
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
@@ -27,12 +29,13 @@ func ReadByteArray(path string) []byte {
 	return data
 }
 
-// IsExists is
+// IsExists ...
 func IsExists(path string) bool {
-	return isValid(path)
+	return IsValid(path)
 }
 
-func isValid(path string) bool {
+// IsValid ...
+func IsValid(path string) bool {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		// log.Fatal(err)
 		return false
@@ -40,23 +43,12 @@ func isValid(path string) bool {
 	return true
 }
 
-func isInvalid(path string) bool {
-	return !isValid(path)
+// IsInvalid ...
+func IsInvalid(path string) bool {
+	return !IsValid(path)
 }
 
-func getPathForTestData() string {
-	return "_resources/dat/testdata.dat"
-}
-
-// CheckErrorsInDatFiles checks existence of all dat files
-func CheckErrorsInDatFiles(lang string) bool {
-	if isInvalid(getPathForTestData()) {
-		return true
-	}
-	return false
-}
-
-// Create is
+// Create ...
 func Create(filename string) (*OFS, error) {
 	f, err := os.Create(filename)
 	if err != nil {
@@ -68,7 +60,7 @@ func Create(filename string) (*OFS, error) {
 	return &ofs, nil
 }
 
-// Write is
+// Write ...
 func Write(ofs *OFS, s string, l int) {
 	if ofs.f == nil {
 		panic(false)
@@ -83,4 +75,24 @@ func Write(ofs *OFS, s string, l int) {
 	}
 
 	ofs.f.Write(b)
+}
+
+func getFilenameForLanguage(filename string, language string) string {
+	if len(language) != 0 {
+		ext := path.Ext(filename)
+		base := filename[0 : len(filename)-len(ext)]
+		return fmt.Sprintf("%s_%s%s", base, language, ext)
+	}
+	return filename
+}
+
+// LoadJSON load
+func LoadJSON(path string, lang string) map[string]interface{} {
+	data := ReadByteArray(getFilenameForLanguage(path, lang))
+
+	j := make(map[string]interface{})
+	if err := json.Unmarshal(data, &j); err != nil {
+		panic(err)
+	}
+	return j
 }
