@@ -110,3 +110,34 @@ func Max4(v0 int, v1 int, v2 int, v3 int) int {
 func XAbs(v int) int {
 	return int(math.Abs(float64(v)))
 }
+
+func ternaryOpByte(b bool, trueV byte, falseV byte) byte {
+	if b {
+		return trueV
+	}
+	return falseV
+}
+
+func ternaryOpInt(b bool, trueV int, falseV int) int {
+	if b {
+		return trueV
+	}
+	return falseV
+}
+
+// TernaryOpInt is a external wrapper for ternaryOpInt
+func TernaryOpInt(b bool, trueV int, falseV int) int {
+	return ternaryOpInt(b, trueV, falseV)
+}
+
+func ternaryOpString(b bool, trueV string, falseV string) string {
+	if b {
+		return trueV
+	}
+	return falseV
+}
+
+// TernaryOpString is a external wrapper for ternaryOpString
+func TernaryOpString(b bool, trueV string, falseV string) string {
+	return ternaryOpString(b, trueV, falseV)
+}
