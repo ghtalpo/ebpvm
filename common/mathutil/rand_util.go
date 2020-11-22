@@ -4,6 +4,11 @@ import (
 	"math/rand"
 )
 
+// RandSeed seeds
+func RandSeed(seed int64) {
+	rand.Seed(seed)
+}
+
 // RandByte returns [0, v)
 func RandByte(v byte) byte {
 	if v == 0 {

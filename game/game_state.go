@@ -3,10 +3,10 @@ package game
 import (
 	"fmt"
 	"log"
-	"math/rand"
 
 	"time"
 
+	"github.com/ghtalpo/egb/common/mathutil"
 	"github.com/ghtalpo/egb/common/ui"
 	"github.com/ghtalpo/egb/game/db"
 	"github.com/ghtalpo/egb/game/states"
@@ -70,7 +70,7 @@ func Start() {
 
 	fmt.Println("egb.init")
 
-	rand.Seed(time.Now().UnixNano())
+	mathutil.RandSeed(time.Now().UnixNano())
 
 	db.LoadDataFiles()
 
