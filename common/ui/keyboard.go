@@ -3,7 +3,7 @@ package ui
 import (
 	"image"
 	"image/color"
-	_ "image/png"
+	_ "image/png" //
 	"log"
 	"strings"
 

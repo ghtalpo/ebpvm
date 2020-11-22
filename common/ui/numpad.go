@@ -3,7 +3,7 @@ package ui
 import (
 	"image"
 	"image/color"
-	_ "image/png"
+	_ "image/png" //
 
 	"github.com/ghtalpo/egb/common/stringutil"
 	"github.com/ghtalpo/egb/common/ui/numpad"
