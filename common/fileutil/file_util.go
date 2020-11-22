@@ -57,15 +57,15 @@ func CheckErrorsInDatFiles(lang string) bool {
 }
 
 // Create is
-func Create(filename string) *OFS {
+func Create(filename string) (*OFS, error) {
 	f, err := os.Create(filename)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 	ofs := OFS{}
 	ofs.f = f
 
-	return &ofs
+	return &ofs, nil
 }
 
 // Write is
