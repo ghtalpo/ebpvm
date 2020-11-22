@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/ghtalpo/egb/egb/konst"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
@@ -58,7 +57,7 @@ func CheckErrorsInDatFiles(lang string) bool {
 }
 
 // Create is
-func Create(filename string) (*OFS, int) {
+func Create(filename string) *OFS {
 	f, err := os.Create(filename)
 	if err != nil {
 		log.Fatal(err)
@@ -66,7 +65,7 @@ func Create(filename string) (*OFS, int) {
 	ofs := OFS{}
 	ofs.f = f
 
-	return &ofs, konst.OK
+	return &ofs
 }
 
 // Write is

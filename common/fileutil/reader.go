@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/ghtalpo/egb/egb/mathutil"
+	"github.com/ghtalpo/egb/common/mathutil"
 )
 
 // Reader is

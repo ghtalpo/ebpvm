@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ghtalpo/egb/egb"
+	egb "github.com/ghtalpo/egb/game"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 

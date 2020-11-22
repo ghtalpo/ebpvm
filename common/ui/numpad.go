@@ -5,8 +5,8 @@ import (
 	"image/color"
 	_ "image/png"
 
-	"github.com/ghtalpo/egb/egb/stringutil"
-	"github.com/ghtalpo/egb/egb/ui/numpad"
+	"github.com/ghtalpo/egb/common/stringutil"
+	"github.com/ghtalpo/egb/common/ui/numpad"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
