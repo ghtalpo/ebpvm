@@ -1,8 +1,8 @@
 package db
 
 import (
-	"github.com/ghtalpo/egb/egb/fileutil"
-	"github.com/ghtalpo/egb/egb/stringutil"
+	"github.com/ghtalpo/egb/common/fileutil"
+	"github.com/ghtalpo/egb/common/stringutil"
 )
 
 const languageFallback = "en"

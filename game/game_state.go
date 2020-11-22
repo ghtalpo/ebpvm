@@ -1,4 +1,4 @@
-package egb
+package game
 
 import (
 	"fmt"
@@ -7,9 +7,9 @@ import (
 
 	"time"
 
-	"github.com/ghtalpo/egb/egb/db"
-	"github.com/ghtalpo/egb/egb/states"
-	"github.com/ghtalpo/egb/egb/ui"
+	"github.com/ghtalpo/egb/common/ui"
+	"github.com/ghtalpo/egb/game/db"
+	"github.com/ghtalpo/egb/game/states"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/juan-medina/goecs"

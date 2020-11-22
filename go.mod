@@ -14,4 +14,4 @@ require (
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )
 
-replace github.com/ghtalpo/egb/egb v0.0.0 => ./egb/ // for easy develop
+replace github.com/ghtalpo/egb/game v0.0.0 => ./game/ // for easy develop

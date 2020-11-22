@@ -7,7 +7,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/ghtalpo/egb/egb/ui/keyboard"
+	"github.com/ghtalpo/egb/common/ui/keyboard"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
