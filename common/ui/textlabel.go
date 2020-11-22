@@ -47,5 +47,10 @@ func (t *Text) Draw(dst *ebiten.Image) {
 		rect := text.BoundString(GetUIFont(), t.Text)
 		xSub = rect.Dx() / 2
 	}
-	text.Draw(dst, t.Text, GetUIFont(), t.X-xSub, t.Y, t.Color)
+	text.Draw(dst, t.Text, GetUIFont(), t.X-xSub, t.Y+GetTextYOffset(), t.Color)
+}
+
+// GetTextYOffset ...
+func GetTextYOffset() int {
+	return lineHeight - (lineHeight-uiFontMHeight)/2
 }
