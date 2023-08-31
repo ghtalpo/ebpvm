@@ -2,6 +2,7 @@ package ui
 
 import (
 	"image"
+	"fmt"
 	"image/color"
 	_ "image/png" //
 
@@ -204,8 +205,35 @@ func (k *NumPad) keyToString(key ebiten.Key) string {
 		return ""
 	default:
 		if len(k.buffer) < k.maxStringLength {
-			return key.String()
+			return k.keyToNumber(key)
 		}
 		return ""
+	}
+}
+
+func (k *NumPad) keyToNumber(key ebiten.Key) string {
+	switch key {
+	case ebiten.Key0:
+		return "0"
+	case ebiten.Key1:
+		return "1"
+	case ebiten.Key2:
+		return "2"
+	case ebiten.Key3:
+		return "3"
+	case ebiten.Key4:
+		return "4"
+	case ebiten.Key5:
+		return "5"
+	case ebiten.Key6:
+		return "6"
+	case ebiten.Key7:
+		return "7"
+	case ebiten.Key8:
+		return "8"
+	case ebiten.Key9:
+		return "9"
+	default:
+		panic(0)
 	}
 }
