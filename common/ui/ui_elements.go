@@ -161,12 +161,16 @@ type Button struct {
 	Text string
 
 	mouseDown bool
+	enabled bool
 
 	onPressed func(b *Button)
 }
 
 // Update handles input.
 func (b *Button) Update() {
+	if !b.enabled {
+		return
+	}
 	if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
 		x, y := ebiten.CursorPosition()
 		if b.Rect.Min.X <= x && x < b.Rect.Max.X && b.Rect.Min.Y <= y && y < b.Rect.Max.Y {
@@ -186,6 +190,9 @@ func (b *Button) Update() {
 
 // Draw render texture and text.
 func (b *Button) Draw(dst *ebiten.Image) {
+	if !b.enabled {
+		return
+	}
 	t := imageTypeButton
 	if b.mouseDown {
 		t = imageTypeButtonPressed
@@ -202,6 +209,11 @@ func (b *Button) Draw(dst *ebiten.Image) {
 // SetOnPressed register callback.
 func (b *Button) SetOnPressed(f func(b *Button)) {
 	b.onPressed = f
+}
+
+// SetEnabled set enabled.
+func (b *Button) SetEnabled(enabled bool) {
+	b.enabled = enabled
 }
 
 // VScrollBarWidth is width for VScrollBar.
