@@ -35,14 +35,14 @@ func NewStateLoading(m *fsm.Machine, world *goecs.World, lch chan db.GameMessage
 		count:        maxCount,
 		logicChannel: lch,
 		uiChannel:    uch,
-		tick:         ebiten.MaxTPS(),
+		tick:         ebiten.TPS(),
 	}
 }
 
 // OnUpdate for updating UI
 func (s *StateLoading) OnUpdate() error {
 	s.tick++
-	if ebiten.MaxTPS() <= s.tick {
+	if ebiten.TPS() <= s.tick {
 		s.tick = 0
 		switch s.count {
 		case 2:

@@ -99,7 +99,7 @@ var imageSrcRects = map[imageType]image.Rectangle{
 
 // Input indicates  mouseButtonState for now.
 type Input struct {
-	mouseButtonState int
+	// mouseButtonState int
 }
 
 func drawNinePatches(dst *ebiten.Image, dstRect image.Rectangle, srcRect image.Rectangle) {
@@ -358,9 +358,9 @@ func (t *TextBox) viewSize() (int, int) {
 	return t.Rect.Dx() - VScrollBarWidth - textBoxPaddingLeft, t.Rect.Dy()
 }
 
-func (t *TextBox) contentOffset() (int, int) {
-	return t.offsetX, t.offsetY
-}
+// func (t *TextBox) contentOffset() (int, int) {
+// 	return t.offsetX, t.offsetY
+// }
 
 // Draw renders content and scroll bar.
 func (t *TextBox) Draw(dst *ebiten.Image) {
@@ -368,7 +368,7 @@ func (t *TextBox) Draw(dst *ebiten.Image) {
 
 	if t.contentBuf != nil {
 		vw, vh := t.viewSize()
-		w, h := t.contentBuf.Size()
+		w, h := t.contentBuf.Bounds().Dx(), t.contentBuf.Bounds().Dy()
 		if vw > w || vh > h {
 			t.contentBuf.Dispose()
 			t.contentBuf = nil

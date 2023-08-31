@@ -111,12 +111,12 @@ func XAbs(v int) int {
 	return int(math.Abs(float64(v)))
 }
 
-func ternaryOpByte(b bool, trueV byte, falseV byte) byte {
-	if b {
-		return trueV
-	}
-	return falseV
-}
+// func ternaryOpByte(b bool, trueV byte, falseV byte) byte {
+// 	if b {
+// 		return trueV
+// 	}
+// 	return falseV
+// }
 
 func ternaryOpInt(b bool, trueV int, falseV int) int {
 	if b {

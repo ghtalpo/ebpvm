@@ -8,7 +8,7 @@ import (
 	"github.com/ghtalpo/egb/common/stringutil"
 	"github.com/ghtalpo/egb/common/ui/numpad"
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2/vector"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text"
 )
@@ -39,7 +39,7 @@ func init() {
 type NumPad struct {
 	TopLeft         image.Point
 	feedbackPos     image.Point
-	pressed         []ebiten.Key
+	// pressed         []ebiten.Key
 	buffer          string
 	result          string
 	min             int
@@ -118,29 +118,30 @@ func (k *NumPad) Draw(dst *ebiten.Image) {
 	)
 
 	colorBorder := color.Color(color.RGBA{0x7f, 0x7f, 0x7f, 0xff})
-	width, height := numPadImage.Size()
+	width, height := numPadImage.Bounds().Dx(), numPadImage.Bounds().Dy()
+
 	// draw pretty borders
 	// horz
-	ebitenutil.DrawLine(dst, float64(offsetX-1), float64(offsetY-2), float64(offsetX-1+width+2), float64(offsetY-2+0), colorBorder)
-	ebitenutil.DrawLine(dst, float64(offsetX-1), float64(offsetY-1), float64(offsetX-1+width+2), float64(offsetY-1+0), color.Black)
+	vector.StrokeLine(dst, float32(offsetX-1), float32(offsetY-2), float32(offsetX-1+width+2), float32(offsetY-2+0), 1, colorBorder, false)
+	vector.StrokeLine(dst, float32(offsetX-1), float32(offsetY-1), float32(offsetX-1+width+2), float32(offsetY-1+0), 1, color.Black, false)
 	// vert
-	ebitenutil.DrawLine(dst, float64(offsetX-1), float64(offsetY-1), float64(offsetX-1), float64(offsetY-2+height+2), colorBorder)
-	ebitenutil.DrawLine(dst, float64(offsetX), float64(offsetY-1), float64(offsetX), float64(offsetY-2+height+2), color.Black)
-	ebitenutil.DrawLine(dst, float64(offsetX-2+width+3), float64(offsetY-1), float64(offsetX-2+width+3), float64(offsetY-2+height+2), color.Black)
-	ebitenutil.DrawLine(dst, float64(offsetX-1+width+3), float64(offsetY-1), float64(offsetX-1+width+3), float64(offsetY-2+height+2), colorBorder)
-	// ebitenutil.DrawLine(dst, float64(x), float64(80)*2, float64(x), float64(143)*2, colorBorder)
+	vector.StrokeLine(dst, float32(offsetX-1), float32(offsetY-1), float32(offsetX-1), float32(offsetY-2+height+2), 1, colorBorder, false)
+	vector.StrokeLine(dst, float32(offsetX), float32(offsetY-1), float32(offsetX), float32(offsetY-2+height+2), 1, color.Black, false)
+	vector.StrokeLine(dst, float32(offsetX-2+width+3), float32(offsetY-1), float32(offsetX-2+width+3), float32(offsetY-2+height+2), 1, color.Black, false)
+	vector.StrokeLine(dst, float32(offsetX-1+width+3), float32(offsetY-1), float32(offsetX-1+width+3), float32(offsetY-2+height+2), 1, colorBorder, false)
+	// vector.StrokeLine(dst, float64(x), float64(80)*2, float64(x), float64(143)*2, colorBorder)
 
 	// Draw the base (grayed) NumPad image.
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(float64(offsetX), float64(offsetY))
-	op.ColorM.Scale(0.5, 0.5, 0.5, 1)
+	op.ColorScale.Scale(0.5, 0.5, 0.5, 1)
 	dst.DrawImage(numPadImage, op)
 
 	if k.feedbackEnabled {
 		x := k.feedbackPos.X
 		y := k.feedbackPos.Y
 		text.Draw(dst, k.GetBuffer(), GetUIFont(), x, y, k.feedbackColor)
-		ebitenutil.DrawLine(dst, float64(x), float64(y+2), float64(x+k.feedbackWidthB*8), float64(y+2), k.feedbackColor)
+		vector.StrokeLine(dst, float32(x), float32(y+2), float32(x+k.feedbackWidthB*8), float32(y+2), 1, k.feedbackColor, false)
 	}
 }
 

@@ -31,29 +31,29 @@ func MakeState(newState fsm.State, m *fsm.Machine, world *goecs.World, logicChan
 }
 
 // Common functions
-func resetGeom(op *ebiten.DrawImageOptions) {
-	resetGeomMirror(op, false)
-}
+// func resetGeom(op *ebiten.DrawImageOptions) {
+// 	resetGeomMirror(op, false)
+// }
 
-func resetGeomMirror(op *ebiten.DrawImageOptions, bMirror bool) {
-	op.GeoM.Reset()
-	if bMirror {
-		op.GeoM.Scale(-1, 1)
-	} else {
-		op.GeoM.Scale(1, 1)
-	}
-}
+// func resetGeomMirror(op *ebiten.DrawImageOptions, bMirror bool) {
+// 	op.GeoM.Reset()
+// 	if bMirror {
+// 		op.GeoM.Scale(-1, 1)
+// 	} else {
+// 		op.GeoM.Scale(1, 1)
+// 	}
+// }
 
 // setupGeom is reset, scale, translate geoM
-func setupGeom(op *ebiten.DrawImageOptions, x int, y int) {
-	setupGeomMirror(op, x, y, false)
-}
+// func setupGeom(op *ebiten.DrawImageOptions, x int, y int) {
+// 	setupGeomMirror(op, x, y, false)
+// }
 
 // setupGeom ...
-func setupGeomMirror(op *ebiten.DrawImageOptions, x int, y int, bMirror bool) {
-	resetGeomMirror(op, bMirror)
-	op.GeoM.Translate(float64(x), float64(y))
-}
+// func setupGeomMirror(op *ebiten.DrawImageOptions, x int, y int, bMirror bool) {
+// 	resetGeomMirror(op, bMirror)
+// 	op.GeoM.Translate(float64(x), float64(y))
+// }
 
 func drawUI(world *goecs.World, screen *ebiten.Image) {
 	for it := world.Iterator(); it != nil; it = it.Next() {

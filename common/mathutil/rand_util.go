@@ -13,8 +13,8 @@ func RandSeed(seed int64) {
 func RandByte(v byte) byte {
 	if v == 0 {
 		return 0
-	} else if v < 0 {
-		panic("minus")
+	// } else if v < 0 {
+	// 	panic("minus")
 	}
 	return byte(rand.Intn(int(v)))
 }

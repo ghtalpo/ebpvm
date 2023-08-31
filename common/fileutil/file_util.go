@@ -7,8 +7,6 @@ import (
 	"log"
 	"os"
 	"path"
-
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
 // ReadByteArray reads all contents from file
@@ -16,7 +14,7 @@ import (
 // should embed images into go file
 // https://ebiten.org/tour/image.html
 func ReadByteArray(path string) []byte {
-	f, err := ebitenutil.OpenFile(path)
+	f, err := os.Open(path)
 	if err != nil {
 		fmt.Println("open file err?", err)
 		log.Fatal(err)

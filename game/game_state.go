@@ -132,7 +132,7 @@ func Stop() {
 
 // OnUpdate called from main.update.
 func OnUpdate() error {
-	gs.world.Update(1.0 / float32(ebiten.MaxTPS()))
+	gs.world.Update(1.0 / float32(ebiten.TPS()))
 	return gs.currentState.OnUpdate()
 }
 
