@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/hajimehoshi/bitmapfont/v2 v2.2.3
-	github.com/hajimehoshi/ebiten/v2 v2.5.7
+	github.com/hajimehoshi/ebiten/v2 v2.5.8
 	github.com/hajimehoshi/file2byteslice v0.0.0-20210813153925-5340248a8f41 // indirect
 	github.com/hajimehoshi/oto v0.6.1 // indirect
 	github.com/juan-medina/goecs v1.5.2
