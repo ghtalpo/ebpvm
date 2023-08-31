@@ -2,7 +2,6 @@ package ui
 
 import (
 	"image"
-	"fmt"
 	"image/color"
 	_ "image/png" //
 
