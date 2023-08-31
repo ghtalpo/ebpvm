@@ -20,5 +20,6 @@ func NewButton(rect image.Rectangle, text string, onPressed func(b *Button)) *Bu
 		Rect:      rect,
 		Text:      text,
 		onPressed: onPressed,
+		enabled: true,
 	}
 }
