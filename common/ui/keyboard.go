@@ -6,17 +6,18 @@ import (
 	_ "image/png" //
 	"log"
 	"strings"
+	"os"
 
 	"github.com/ghtalpo/egb/common/ui/keyboard"
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2/vector"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text"
 )
 
 var keyboardImage *ebiten.Image
 var capsImage *ebiten.Image
-var rect image.Rectangle
+// var rect image.Rectangle
 var validKeys []ebiten.Key = []ebiten.Key{
 	ebiten.Key0,
 	ebiten.Key1,
@@ -79,7 +80,7 @@ func LoadImage(path string) *ebiten.Image {
 
 // func
 func loadImage(path string) (*ebiten.Image, bool) {
-	f, err := ebitenutil.OpenFile(path)
+	f, err := os.Open(path)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -100,7 +101,7 @@ func init() {
 type Keyboard struct {
 	TopLeft         image.Point
 	feedBackPos     image.Point
-	pressed         []ebiten.Key
+	// pressed         []ebiten.Key
 	toCaps          bool
 	buffer          string
 	result          string
@@ -159,29 +160,30 @@ func (k *Keyboard) Draw(dst *ebiten.Image) {
 	)
 
 	colorBorder := color.Color(color.RGBA{0x7f, 0x7f, 0x7f, 0xff})
-	width, height := keyboardImage.Size()
+	width, height := keyboardImage.Bounds().Dx(), keyboardImage.Bounds().Dy()
+
 	// draw pretty borders
 	// horz
-	ebitenutil.DrawLine(dst, float64(offsetX-1), float64(offsetY-2), float64(offsetX-1+width+2), float64(offsetY-2+0), colorBorder)
-	ebitenutil.DrawLine(dst, float64(offsetX-1), float64(offsetY-1), float64(offsetX-1+width+2), float64(offsetY-1+0), color.Black)
+	vector.StrokeLine(dst, float32(offsetX-1), float32(offsetY-2), float32(offsetX-1+width+2), float32(offsetY-2+0), 1, colorBorder, false)
+	vector.StrokeLine(dst, float32(offsetX-1), float32(offsetY-1), float32(offsetX-1+width+2), float32(offsetY-1+0), 1, color.Black, false)
 	// vert
-	ebitenutil.DrawLine(dst, float64(offsetX-1), float64(offsetY-1), float64(offsetX-1), float64(offsetY-2+height+2), colorBorder)
-	ebitenutil.DrawLine(dst, float64(offsetX), float64(offsetY-1), float64(offsetX), float64(offsetY-2+height+2), color.Black)
-	ebitenutil.DrawLine(dst, float64(offsetX-2+width+3), float64(offsetY-1), float64(offsetX-2+width+3), float64(offsetY-2+height+2), color.Black)
-	ebitenutil.DrawLine(dst, float64(offsetX-1+width+3), float64(offsetY-1), float64(offsetX-1+width+3), float64(offsetY-2+height+2), colorBorder)
-	// ebitenutil.DrawLine(dst, float64(x), float64(80)*2, float64(x), float64(143)*2, colorBorder)
+	vector.StrokeLine(dst, float32(offsetX-1), float32(offsetY-1), float32(offsetX-1), float32(offsetY-2+height+2), 1, colorBorder, false)
+	vector.StrokeLine(dst, float32(offsetX), float32(offsetY-1), float32(offsetX), float32(offsetY-2+height+2), 1, color.Black, false)
+	vector.StrokeLine(dst, float32(offsetX-2+width+3), float32(offsetY-1), float32(offsetX-2+width+3), float32(offsetY-2+height+2), 1, color.Black, false)
+	vector.StrokeLine(dst, float32(offsetX-1+width+3), float32(offsetY-1), float32(offsetX-1+width+3), float32(offsetY-2+height+2), 1, colorBorder, false)
+	// vector.StrokeLine(dst, float64(x), float64(80)*2, float64(x), float64(143)*2, colorBorder)
 
 	// Draw the base (grayed) keyboard image.
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(float64(offsetX), float64(offsetY))
-	op.ColorM.Scale(0.5, 0.5, 0.5, 1)
+	op.ColorScale.Scale(0.5, 0.5, 0.5, 1)
 	dst.DrawImage(keyboardImage, op)
 
 	// Draw caps lock status with shift
 	if k.toCaps {
 		r, ok := keyboard.KeyRect(ebiten.KeyShift)
 		if ok {
-			op.ColorM.Reset()
+			op.ColorScale.Reset()
 			op.GeoM.Translate(float64(r.Min.X), float64(r.Min.Y))
 			dst.DrawImage(capsImage, op)
 		}
@@ -191,7 +193,7 @@ func (k *Keyboard) Draw(dst *ebiten.Image) {
 		x := k.feedBackPos.X
 		y := k.feedBackPos.Y
 		text.Draw(dst, k.GetBuffer(), GetUIFont(), x, y, color.White)
-		ebitenutil.DrawLine(dst, float64(x), float64(y+2), float64(x+k.feedBackWidthB*8), float64(y+2), color.White)
+		vector.StrokeLine(dst, float32(x), float32(y+2), float32(x+k.feedBackWidthB*8), float32(y+2), 1, color.White, false)
 	}
 }
 

@@ -99,7 +99,7 @@ var imageSrcRects = map[imageType]image.Rectangle{
 
 // Input indicates  mouseButtonState for now.
 type Input struct {
-	mouseButtonState int
+	// mouseButtonState int
 }
 
 func drawNinePatches(dst *ebiten.Image, dstRect image.Rectangle, srcRect image.Rectangle) {
@@ -161,12 +161,16 @@ type Button struct {
 	Text string
 
 	mouseDown bool
+	enabled bool
 
 	onPressed func(b *Button)
 }
 
 // Update handles input.
 func (b *Button) Update() {
+	if !b.enabled {
+		return
+	}
 	if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
 		x, y := ebiten.CursorPosition()
 		if b.Rect.Min.X <= x && x < b.Rect.Max.X && b.Rect.Min.Y <= y && y < b.Rect.Max.Y {
@@ -186,6 +190,9 @@ func (b *Button) Update() {
 
 // Draw render texture and text.
 func (b *Button) Draw(dst *ebiten.Image) {
+	if !b.enabled {
+		return
+	}
 	t := imageTypeButton
 	if b.mouseDown {
 		t = imageTypeButtonPressed
@@ -202,6 +209,11 @@ func (b *Button) Draw(dst *ebiten.Image) {
 // SetOnPressed register callback.
 func (b *Button) SetOnPressed(f func(b *Button)) {
 	b.onPressed = f
+}
+
+// SetEnabled set enabled.
+func (b *Button) SetEnabled(enabled bool) {
+	b.enabled = enabled
 }
 
 // VScrollBarWidth is width for VScrollBar.
@@ -346,9 +358,9 @@ func (t *TextBox) viewSize() (int, int) {
 	return t.Rect.Dx() - VScrollBarWidth - textBoxPaddingLeft, t.Rect.Dy()
 }
 
-func (t *TextBox) contentOffset() (int, int) {
-	return t.offsetX, t.offsetY
-}
+// func (t *TextBox) contentOffset() (int, int) {
+// 	return t.offsetX, t.offsetY
+// }
 
 // Draw renders content and scroll bar.
 func (t *TextBox) Draw(dst *ebiten.Image) {
@@ -356,7 +368,7 @@ func (t *TextBox) Draw(dst *ebiten.Image) {
 
 	if t.contentBuf != nil {
 		vw, vh := t.viewSize()
-		w, h := t.contentBuf.Size()
+		w, h := t.contentBuf.Bounds().Dx(), t.contentBuf.Bounds().Dy()
 		if vw > w || vh > h {
 			t.contentBuf.Dispose()
 			t.contentBuf = nil

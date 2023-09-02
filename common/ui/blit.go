@@ -4,7 +4,7 @@ import (
 	"image/color"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
 // CopyPixel copy
@@ -41,8 +41,8 @@ func floodfillInternal(image *ebiten.Image, x int, y int, c color.Color, targetC
 
 // DrawRectangle draw
 func DrawRectangle(screen *ebiten.Image, x1 int, y1 int, x2 int, y2 int, c color.Color) {
-	ebitenutil.DrawLine(screen, float64(x1), float64(y1), float64(x2), float64(y1), c)
-	ebitenutil.DrawLine(screen, float64(x1), float64(y2), float64(x2), float64(y2), c)
-	ebitenutil.DrawLine(screen, float64(x1), float64(y1), float64(x1), float64(y2), c)
-	ebitenutil.DrawLine(screen, float64(x2), float64(y1), float64(x2), float64(y2), c)
+	vector.StrokeLine(screen, float32(x1), float32(y1), float32(x2), float32(y1), 1, c, false)
+	vector.StrokeLine(screen, float32(x1), float32(y2), float32(x2), float32(y2), 1, c, false)
+	vector.StrokeLine(screen, float32(x1), float32(y1), float32(x1), float32(y2), 1, c, false)
+	vector.StrokeLine(screen, float32(x2), float32(y1), float32(x2), float32(y2), 1, c, false)
 }

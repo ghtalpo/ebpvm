@@ -2,7 +2,7 @@ package db
 
 import (
 	"github.com/ghtalpo/egb/common/fileutil"
-	"github.com/ghtalpo/egb/common/stringutil"
+	// "github.com/ghtalpo/egb/common/stringutil"
 )
 
 const languageFallback = "en"
@@ -38,19 +38,19 @@ func (r *Resources) setLanguage(lang string) {
 	r.jsonMessage = fileutil.LoadJSON("_resources/json/message.json", "")
 }
 
-func readIntVec(json map[string]interface{}, key string) []byte {
-	d := json[key].(map[string]interface{})
+// func readIntVec(json map[string]interface{}, key string) []byte {
+// 	d := json[key].(map[string]interface{})
 
-	len := len(d)
-	v := make([]byte, len)
+// 	len := len(d)
+// 	v := make([]byte, len)
 
-	for i := range v {
-		vv := d[stringutil.Itoa(i)]
-		b, _ := vv.(float64)
-		v[i] = byte(b)
-	}
-	return v
-}
+// 	for i := range v {
+// 		vv := d[stringutil.Itoa(i)]
+// 		b, _ := vv.(float64)
+// 		v[i] = byte(b)
+// 	}
+// 	return v
+// }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 func (r *Resources) getMessageEx(json map[string]interface{}, key string) string {
@@ -82,20 +82,20 @@ func (r *Resources) getDictionaryElement(json map[string]interface{}, key string
 	return v[k]
 }
 
-func (r *Resources) getArrayElement(json map[string]interface{}, key string, idx int) interface{} {
-	v := json[key].(map[string]interface{})
-	vv := v[stringutil.Itoa(idx)]
-	return vv
-}
+// func (r *Resources) getArrayElement(json map[string]interface{}, key string, idx int) interface{} {
+// 	v := json[key].(map[string]interface{})
+// 	vv := v[stringutil.Itoa(idx)]
+// 	return vv
+// }
 
 // ////////////////////////////////////////////////////////////////////////////////////////////
 func (r *Resources) getDictionaryElementFromScenarioSetup(key string, keys []string, idx int) interface{} {
 	return r.getDictionaryElement(r.jsonScenarioSetup, key, keys, idx)
 }
 
-func (r *Resources) getArraryElementFromScenarioSetup(key string, idx int) interface{} {
-	return r.getArrayElement(r.jsonScenarioSetup, key, idx)
-}
+// func (r *Resources) getArraryElementFromScenarioSetup(key string, idx int) interface{} {
+// 	return r.getArrayElement(r.jsonScenarioSetup, key, idx)
+// }
 
 // GetTopMenu gets
 func (r *Resources) GetTopMenu(abilityIdx int) string {

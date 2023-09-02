@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/ghtalpo/egb/common/fileutil"
-	"golang.org/x/text/encoding/korean"
-	"golang.org/x/text/transform"
+	// "golang.org/x/text/encoding/korean"
+	// "golang.org/x/text/transform"
 )
 
 var (
@@ -34,10 +34,7 @@ func getGameLanguage() string {
 
 // CheckErrorsInDatFiles checks existence of all dat files
 func CheckErrorsInDatFiles(lang string) bool {
-	if fileutil.IsInvalid(getPathForTestData()) {
-		return true
-	}
-	return false
+	return fileutil.IsInvalid(getPathForTestData())
 }
 
 // CheckDatFiles ...
@@ -93,34 +90,34 @@ func getValDepedentForLang() int {
 	return valDepedentForLang
 }
 
-func decodeToUtf8(src string) string {
-	switch getGameLanguage() {
-	case "en":
-		return src
-	case "ko":
-		// cp949 to utf8
-		got, _, err := transform.String(korean.EUCKR.NewDecoder(), src)
-		if err != nil {
-			panic(err)
-		}
-		return got
-	default:
-		panic(fmt.Sprintf("unsupported language:%s", getGameLanguage()))
-	}
-}
+// func decodeToUtf8(src string) string {
+// 	switch getGameLanguage() {
+// 	case "en":
+// 		return src
+// 	case "ko":
+// 		// cp949 to utf8
+// 		got, _, err := transform.String(korean.EUCKR.NewDecoder(), src)
+// 		if err != nil {
+// 			panic(err)
+// 		}
+// 		return got
+// 	default:
+// 		panic(fmt.Sprintf("unsupported language:%s", getGameLanguage()))
+// 	}
+// }
 
-func encodeFromUtf8(src string) string {
-	switch getGameLanguage() {
-	case "en":
-		return src
-	case "ko":
-		// utf8 to cp949
-		got, _, err := transform.String(korean.EUCKR.NewEncoder(), src)
-		if err != nil {
-			panic(err)
-		}
-		return got
-	default:
-		panic(fmt.Sprintf("unsupported language:%s", getGameLanguage()))
-	}
-}
+// func encodeFromUtf8(src string) string {
+// 	switch getGameLanguage() {
+// 	case "en":
+// 		return src
+// 	case "ko":
+// 		// utf8 to cp949
+// 		got, _, err := transform.String(korean.EUCKR.NewEncoder(), src)
+// 		if err != nil {
+// 			panic(err)
+// 		}
+// 		return got
+// 	default:
+// 		panic(fmt.Sprintf("unsupported language:%s", getGameLanguage()))
+// 	}
+// }
