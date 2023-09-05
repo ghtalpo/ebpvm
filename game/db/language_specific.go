@@ -1,16 +1,14 @@
 package db
 
 import (
-	"fmt"
-
 	"github.com/ghtalpo/egb/common/fileutil"
 	// "golang.org/x/text/encoding/korean"
 	// "golang.org/x/text/transform"
 )
 
 var (
-	lang               string
-	valDepedentForLang int
+	lang string
+	// valDepedentForLang int
 )
 
 // SetGameLanguage ...
@@ -73,22 +71,23 @@ func LoadDataFiles() {
 }
 
 func setupVariables() {
-	switch getGameLanguage() {
-	case "en":
-		valDepedentForLang = 0x1
-	case "ko":
-		valDepedentForLang = 0x2
-	default:
-		panic(fmt.Sprintf("unsupported language:%s", getGameLanguage()))
-	}
+	getGameLanguage()
+	// switch getGameLanguage() {
+	// case "en":
+	// 	valDepedentForLang = 0x1
+	// case "ko":
+	// 	valDepedentForLang = 0x2
+	// default:
+	// 	panic(fmt.Sprintf("unsupported language:%s", getGameLanguage()))
+	// }
 }
 
-func getValDepedentForLang() int {
-	if lang == "" {
-		panic("call SetGameLanguage first")
-	}
-	return valDepedentForLang
-}
+// func getValDepedentForLang() int {
+// 	if lang == "" {
+// 		panic("call SetGameLanguage first")
+// 	}
+// 	return valDepedentForLang
+// }
 
 // func decodeToUtf8(src string) string {
 // 	switch getGameLanguage() {
